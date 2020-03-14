@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_boss/component/tab-item.dart';
+
 import 'package:flutter_boss/screen/company.dart';
 import 'package:flutter_boss/screen/job.dart';
 import 'package:flutter_boss/screen/me.dart';
@@ -22,7 +24,7 @@ class _BossAppState extends State<BossApp> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    _controller = new TabController(
+    _controller = TabController(
         initialIndex: _currentIndex, length: _widgets.length, vsync: this);
 
     onChanged = () {
@@ -48,10 +50,42 @@ class _BossAppState extends State<BossApp> with SingleTickerProviderStateMixin {
           controller: _controller,
           labelStyle: TextStyle(fontSize: 12),
           tabs: <Widget>[
-            Text('job'),
-            Text('company'),
-            Text('message'),
-            Text('me'),
+            IconTabItem(
+              icon: _currentIndex == 0
+                  ? 'assets/images/ic_main_tab_find_pre.png'
+                  : 'assets/images/ic_main_tab_find_nor.png',
+              text: 'Job',
+              color: _currentIndex == 0
+                  ? Theme.of(context).primaryColor
+                  : Colors.grey,
+            ),
+            IconTabItem(
+              icon: _currentIndex == 1
+                  ? 'assets/images/ic_main_tab_company_pre.png'
+                  : 'assets/images/ic_main_tab_company_nor.png',
+              text: 'Company',
+              color: _currentIndex == 1
+                  ? Theme.of(context).primaryColor
+                  : Colors.grey,
+            ),
+            IconTabItem(
+              icon: _currentIndex == 2
+                  ? 'assets/images/ic_main_tab_contacts_pre.png'
+                  : 'assets/images/ic_main_tab_contacts_nor.png',
+              text: 'Message',
+              color: _currentIndex == 2
+                  ? Theme.of(context).primaryColor
+                  : Colors.grey,
+            ),
+            IconTabItem(
+              icon: _currentIndex == 3
+                  ? 'assets/images/ic_main_tab_my_pre.png'
+                  : 'assets/images/ic_main_tab_my_nor.png',
+              text: 'Me',
+              color: _currentIndex == 3
+                  ? Theme.of(context).primaryColor
+                  : Colors.grey,
+            )
           ],
         ),
       ),
