@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boss/model/job.dart';
+import 'package:flutter_boss/component/job-item.dart';
 
 class JobScreen extends StatefulWidget {
   JobScreen({Key key}) : super(key: key);
@@ -34,7 +35,7 @@ class _JobScreenState extends State<JobScreen> {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          'JobList',
+          'Job List',
           style: TextStyle(
             fontSize: 20,
             color: Colors.white,
@@ -52,7 +53,15 @@ class _JobScreenState extends State<JobScreen> {
     Job job = _jobs[i];
 
     return InkWell(
-      child: Text(job.name),
+      onTap: () {
+        showDialog(
+          context: context,
+          child: AlertDialog(
+            content: Text('敬请期待！', style: TextStyle(fontSize: 20.0)),
+          ),
+        );
+      },
+      child: JobItem(job),
     );
   }
 }
