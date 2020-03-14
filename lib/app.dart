@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boss/component/tab-item.dart';
 
 import 'package:flutter_boss/screen/company.dart';
-import 'package:flutter_boss/screen/job.dart';
+import 'package:flutter_boss/screen/job/job.dart';
 import 'package:flutter_boss/screen/me.dart';
 import 'package:flutter_boss/screen/message.dart';
 

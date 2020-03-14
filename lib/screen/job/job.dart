@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boss/model/job.dart';
-import 'package:flutter_boss/component/job-item.dart';
+
+import 'job-item.dart';
 
 class JobScreen extends StatefulWidget {
   JobScreen({Key key}) : super(key: key);
