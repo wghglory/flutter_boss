@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boss/component/tab-item.dart';
 
 import 'package:flutter_boss/screen/company/company-list.dart';
+import 'package:flutter_boss/screen/friend/friend-list.dart';
 import 'package:flutter_boss/screen/job/job-list.dart';
 import 'package:flutter_boss/screen/me/me.dart';
 import 'package:flutter_boss/screen/message/message.dart';
@@ -21,6 +22,7 @@ class _BossAppState extends State<BossApp> with SingleTickerProviderStateMixin {
   var _widgets = [
     JobListScreen(),
     CompanyListScreen(),
+    FriendListScreen(),
     MessageScreen(),
     MeScreen()
   ];
@@ -75,19 +77,28 @@ class _BossAppState extends State<BossApp> with SingleTickerProviderStateMixin {
             ),
             IconTabItem(
               icon: _currentIndex == 2
-                  ? 'assets/images/ic_main_tab_contacts_pre.png'
-                  : 'assets/images/ic_main_tab_contacts_nor.png',
-              text: 'Message',
+                  ? 'assets/images/ic_main_tab_company_pre.png'
+                  : 'assets/images/ic_main_tab_company_nor.png',
+              text: 'Friend',
               color: _currentIndex == 2
                   ? Theme.of(context).primaryColor
                   : Colors.grey,
             ),
             IconTabItem(
               icon: _currentIndex == 3
+                  ? 'assets/images/ic_main_tab_contacts_pre.png'
+                  : 'assets/images/ic_main_tab_contacts_nor.png',
+              text: 'Message',
+              color: _currentIndex == 3
+                  ? Theme.of(context).primaryColor
+                  : Colors.grey,
+            ),
+            IconTabItem(
+              icon: _currentIndex == 4
                   ? 'assets/images/ic_main_tab_my_pre.png'
                   : 'assets/images/ic_main_tab_my_nor.png',
               text: 'Me',
-              color: _currentIndex == 3
+              color: _currentIndex == 4
                   ? Theme.of(context).primaryColor
                   : Colors.grey,
             )
