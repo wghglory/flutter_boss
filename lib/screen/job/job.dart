@@ -3,6 +3,8 @@ import 'package:flutter_boss/model/job.dart';
 
 import 'job-item.dart';
 
+/* default refresh when draging and pulling */
+
 class JobScreen extends StatefulWidget {
   JobScreen({Key key}) : super(key: key);
 
@@ -13,11 +15,29 @@ class JobScreen extends StatefulWidget {
 class _JobScreenState extends State<JobScreen> {
   List<Job> _jobs = [];
 
+  ScrollController _scrollCtrl =
+      ScrollController(); // listView drag up to refresh
+  VoidCallback scrollFn;
+
   @override
   void initState() {
     super.initState();
 
+    scrollFn = () {
+      if (_scrollCtrl.position.pixels == _scrollCtrl.position.maxScrollExtent) {
+        print('滑动到最下⾯了');
+        // todo: 显示加载更多相关的样式即可。但是缺点是UI可定制性差，⽆法满⾜公司的需要
+      }
+    };
+    _scrollCtrl.addListener(scrollFn);
+
     _getJobList();
+  }
+
+  @override
+  void dispose() {
+    _scrollCtrl.removeListener(scrollFn);
+    super.dispose();
   }
 
   void _getJobList() async {
@@ -48,6 +68,7 @@ class _JobScreenState extends State<JobScreen> {
         child: new ListView.builder(
           itemCount: _jobs.length,
           itemBuilder: _buildJobItem,
+          controller: _scrollCtrl,
         ),
       ), // Default refresh when dragging down
     );
