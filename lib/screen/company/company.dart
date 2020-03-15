@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boss/model/company.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart'; // https://pub.dev/packages/pull_to_refresh
 
 import 'company-detail.dart';
 import 'company-item.dart';
+
+/* pull to refresh package */
 
 class CompanyScreen extends StatefulWidget {
   CompanyScreen({Key key}) : super(key: key);
@@ -25,9 +29,31 @@ class _CompanyScreenState extends State<CompanyScreen> {
     String jsonString =
         await DefaultAssetBundle.of(context).loadString('assets/company.json');
 
-    setState(() {
-      _companies = Company.fromJson(jsonString);
-    });
+    if (mounted) {
+      setState(() {
+        _companies = Company.fromJson(jsonString);
+      });
+    }
+  }
+
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    if (mounted) {
+      setState(() {});
+    }
+    _refreshController.loadComplete();
   }
 
   @override
@@ -51,11 +77,40 @@ class _CompanyScreenState extends State<CompanyScreen> {
           )
         ],
       ),
-      body: ListView.builder(
+      body: SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: true,
+        header: WaterDropHeader(),
+        footer: CustomFooter(
+          builder: (BuildContext context, LoadStatus mode) {
+            Widget body;
+            if (mode == LoadStatus.idle) {
+              body = Text("pull up load");
+            } else if (mode == LoadStatus.loading) {
+              body = CupertinoActivityIndicator();
+            } else if (mode == LoadStatus.failed) {
+              body = Text("Load Failed!Click retry!");
+            } else if (mode == LoadStatus.canLoading) {
+              body = Text("release to load more");
+            } else {
+              body = Text("No more Data");
+            }
+            return Container(
+              height: 55.0,
+              child: Center(child: body),
+            );
+          },
+        ),
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+        onLoading: _onLoading,
+        child: ListView.builder(
           itemCount: _companies.length,
           itemBuilder: (context, index) {
             return _buildCompanyItem(context, index);
-          }),
+          },
+        ),
+      ),
     );
   }
 
