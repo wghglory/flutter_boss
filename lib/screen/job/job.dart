@@ -43,11 +43,20 @@ class _JobScreenState extends State<JobScreen> {
           ),
         ),
       ),
-      body: ListView.builder(
-        itemCount: _jobs.length,
-        itemBuilder: _buildJobItem,
-      ),
+      body: RefreshIndicator(
+        onRefresh: _onRefresh,
+        child: new ListView.builder(
+          itemCount: _jobs.length,
+          itemBuilder: _buildJobItem,
+        ),
+      ), // Default refresh when dragging down
     );
+  }
+
+  Future<void> _onRefresh() async {
+    await Future.delayed(Duration(seconds: 3), () {
+      print('refresh');
+    });
   }
 
   Widget _buildJobItem(BuildContext ctx, int i) {
