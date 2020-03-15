@@ -5,14 +5,14 @@ import 'job-item.dart';
 
 /* default refresh when draging and pulling */
 
-class JobScreen extends StatefulWidget {
-  JobScreen({Key key}) : super(key: key);
+class JobListScreen extends StatefulWidget {
+  JobListScreen({Key key}) : super(key: key);
 
   @override
-  _JobScreenState createState() => _JobScreenState();
+  _JobListScreenState createState() => _JobListScreenState();
 }
 
-class _JobScreenState extends State<JobScreen> {
+class _JobListScreenState extends State<JobListScreen> {
   List<Job> _jobs = [];
 
   ScrollController _scrollCtrl =

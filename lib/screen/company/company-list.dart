@@ -8,14 +8,14 @@ import 'company-item.dart';
 
 /* pull to refresh package */
 
-class CompanyScreen extends StatefulWidget {
-  CompanyScreen({Key key}) : super(key: key);
+class CompanyListScreen extends StatefulWidget {
+  CompanyListScreen({Key key}) : super(key: key);
 
   @override
-  _CompanyScreenState createState() => _CompanyScreenState();
+  _CompanyListScreenState createState() => _CompanyListScreenState();
 }
 
-class _CompanyScreenState extends State<CompanyScreen> {
+class _CompanyListScreenState extends State<CompanyListScreen> {
   List<Company> _companies = [];
 
   @override

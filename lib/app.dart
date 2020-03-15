@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_boss/component/tab-item.dart';
 
-import 'package:flutter_boss/screen/company/company.dart';
-import 'package:flutter_boss/screen/job/job.dart';
-import 'package:flutter_boss/screen/me.dart';
-import 'package:flutter_boss/screen/message.dart';
+import 'package:flutter_boss/screen/company/company-list.dart';
+import 'package:flutter_boss/screen/job/job-list.dart';
+import 'package:flutter_boss/screen/me/me.dart';
+import 'package:flutter_boss/screen/message/message.dart';
 
 class BossApp extends StatefulWidget {
   BossApp({Key key}) : super(key: key);
@@ -18,7 +18,12 @@ class _BossAppState extends State<BossApp> with SingleTickerProviderStateMixin {
   TabController _controller;
   int _currentIndex = 0;
   VoidCallback onChanged;
-  var _widgets = [JobScreen(), CompanyScreen(), MessageScreen(), MeScreen()];
+  var _widgets = [
+    JobListScreen(),
+    CompanyListScreen(),
+    MessageScreen(),
+    MeScreen()
+  ];
 
   @override
   void initState() {
