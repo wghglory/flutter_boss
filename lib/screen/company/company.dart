@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boss/model/company.dart';
 
+import 'company-item.dart';
+
 class CompanyScreen extends StatefulWidget {
   CompanyScreen({Key key}) : super(key: key);
 
@@ -57,7 +59,16 @@ class _CompanyScreenState extends State<CompanyScreen> {
   }
 
   Widget _buildCompanyItem(BuildContext context, int index) {
+    // Company company = _companies[index];
+    // return Text(company.name);
+
     Company company = _companies[index];
-    return Text(company.name);
+
+    var companyItem = InkWell(
+      // onTap: () => {_navCompanyDetail(company, index)},
+      child: CompanyItem(company),
+    ); // ListTile also works
+
+    return companyItem;
   }
 }
