@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boss/model/company.dart';
 
+import 'company-detail.dart';
 import 'company-item.dart';
 
 class CompanyScreen extends StatefulWidget {
@@ -65,10 +66,40 @@ class _CompanyScreenState extends State<CompanyScreen> {
     Company company = _companies[index];
 
     var companyItem = InkWell(
-      // onTap: () => {_navCompanyDetail(company, index)},
+      onTap: () => {_navCompanyDetail(company, index)},
       child: CompanyItem(company),
     ); // ListTile also works
 
     return companyItem;
+  }
+
+  // 跳转详情页
+  _navCompanyDetail(Company company, int index) {
+    // Navigator.push(
+    //   context,
+    //   new MaterialPageRoute(
+    //     builder: (context) => new CompanyDetail(company),
+    //   ),
+    // );
+
+    Navigator.of(context).push(
+      new PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (BuildContext context, _, __) {
+          return CompanyDetail(company);
+        },
+        transitionsBuilder: (_, Animation<double> animation, __, Widget child) {
+          return new FadeTransition(
+            opacity: animation,
+            child: new SlideTransition(
+                position: new Tween<Offset>(
+                  begin: const Offset(1.0, 0.0),
+                  end: Offset.zero,
+                ).animate(animation),
+                child: child),
+          );
+        },
+      ),
+    );
   }
 }
